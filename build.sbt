@@ -7,9 +7,7 @@ lazy val root = (project in file("."))
     name := "lincalc-scala",
     idePackagePrefix := Some("pl.piasta.lincalc.scala"),
     javaOptions += "-Dnashorn.args=--no-deprecation-warning",
-    scalacOptions ++= Seq(
-      "-release:jvm-11"
-    ),
+    scalacOptions += "-release:jvm-11",
     libraryDependencies ++= Seq(
       "org.scalafx" % "scalafx_3" % "19.0.0-R30",
       "ch.obermuhlner" % "big-math" % "2.3.2"
