@@ -1,24 +1,26 @@
 package pl.piasta.lincalc.scala
 package math
 
+import common.Constants.PRECISION
+
 import ch.obermuhlner.math.big.DefaultBigDecimalMath
+import ch.obermuhlner.math.big.DefaultBigDecimalMath.createLocalMathContext
 
 import scala.util.Using
+import scala.util.Using.resource
 
 object MathExtensions:
-    private val PRECISION = 32
-
     extension (value: BigDecimal)
         def percentage: BigDecimal = value / BigDecimal(100)
 
-        def sqrt: BigDecimal = Using(createLocalMathContext(PRECISION)) {
-            DefaultBigDecimalMath.sqrt(value)
+        def sqrt: BigDecimal = resource(createLocalMathContext(PRECISION)) { _ =>
+            DefaultBigDecimalMath.sqrt(value.bigDecimal)
         }
 
-        def sin: BigDecimal = Using(createLocalMathContext(PRECISION)) {
-            DefaultBigDecimalMath.sin(value)
+        def sin: BigDecimal = resource(createLocalMathContext(PRECISION)) { _ =>
+            DefaultBigDecimalMath.sin(value.bigDecimal)
         }
 
-        def cos: BigDecimal = Using(createLocalMathContext(PRECISION)) {
-            DefaultBigDecimalMath.cos(value)
+        def cos: BigDecimal = resource(createLocalMathContext(PRECISION)) { _ =>
+            DefaultBigDecimalMath.cos(value.bigDecimal)
         }

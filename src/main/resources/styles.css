@@ -1,0 +1,64 @@
+.root {
+    -fx-pref-width: 306px;
+    -fx-pref-height: 468px;
+    -fx-background-color: black;
+}
+
+.keypad-pane {
+    -fx-padding: 20px;
+    -fx-hgap: 20px;
+    -fx-vgap: 20px;
+}
+
+.digital-screen {
+    -fx-padding: 20px;
+    -fx-pref-height: 95px;
+    -fx-alignment: center-right;
+    -fx-background-color: black;
+    -fx-text-fill: red;
+}
+
+.circle-btn {
+    -fx-background-radius: 4px;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.circle-btn:pressed {
+    -fx-effect: innershadow(gaussian, rgba(255, 255, 255, 0.5), 4.0, 0.0, 0.0, 3.0);
+}
+
+.clear-btn {
+    -fx-background-color: rgb(51, 105, 30);
+    -fx-text-fill: white;
+}
+
+.clear-btn:pressed {
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.5), 4.0, 0.0, 0.0, 3.0);
+}
+
+.trigonometric-function-btn {
+    -fx-background-color: rgb(252, 214, 8);
+}
+
+.operator-btn {
+    -fx-background-color: rgb(254, 148, 0);
+    -fx-text-fill: white;
+}
+
+.operator-btn:pressed {
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.5), 4.0, 0.0, 0.0, 3.0);
+}
+
+.digit-input-btn, .input-format-btn {
+    -fx-background-color: rgb(51, 51, 51);
+    -fx-text-fill: white;
+}
+
+.digit-input-btn:pressed, .input-format-btn:pressed {
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.5), 4.0, 0.0, 0.0, 3.0);
+}
+
+.function-btn {
+    -fx-background-color: rgba(166, 166, 166);
+}

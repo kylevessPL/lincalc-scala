@@ -2,32 +2,29 @@ package pl.piasta.lincalc.scala
 package ui.control
 
 import common.Constants.{DIGITAL_FONT, FONT_ASSETS}
-import common.extensions.Extensions.{coerceAtLeast, horizontal, runAsync, toFont}
+import common.Extensions.{coerceAtLeast, deselect, horizontal, runAsync, toFont}
 
 import javafx.beans.value.ChangeListener
-import scalafx.application.Platform
-import scalafx.application.Platform.runLater
-import scalafx.beans.value.ChangeListener
+import scalafx.beans.property.StringProperty
 import scalafx.concurrent.Task
 import scalafx.scene.Cursor.Hand
 import scalafx.scene.control.TextField
 import scalafx.scene.text.{Font, Text}
 
-val FONT_SIZE_MIN = 18.0
-val digitalFont = s"$FONT_ASSETS/$DIGITAL_FONT".toFont(64.0)
+private val FONT_SIZE_MIN = 18.0
+private val digitalFont = s"$FONT_ASSETS/$DIGITAL_FONT".toFont(64.0)
 
-class DigitalScreen extends TextField {
+class DigitalScreen(private val property: StringProperty) extends TextField {
     editable = false
     font = digitalFont
     cursor = Hand
-    selectedText.addListener((_, _, _) => deselect())
+    text.bind(property)
     text.addListener((_, oldValue, newValue) => {
         if (oldValue.nonEmpty) updateAsync(newValue)
     })
+    selectedText.addListener((_, _, _) => this.deselect())
     Array(width, height).foreach { element =>
-        element.onChange((_, oldValue, _) => {
-            if (oldValue != 0) updateAsync(this.getText)
-        })
+        element.onChange((_, oldValue, _) => if oldValue != 0 then updateAsync(this.getText))
     }
     styleClass += "digital-screen"
 
