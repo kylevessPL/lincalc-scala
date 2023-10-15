@@ -23,8 +23,10 @@ object Extensions {
             if result.endsWith(DECIMAL_DOT) then result.dropRight(1) else result
         else value
 
-        def takeLastWhileInclusive(predicate: Char => Boolean): String = {
-            (value.length - 1 to 0 by -1).find(index => !predicate(value.charAt(index))) match
+        def takeLastUntilFormerAndLatter(former: Char => Boolean, latter: Char => Boolean): String = {
+            (value.length - 1 to 0 by -1).find(index =>
+                index > 0 && former(value.charAt(index)) && latter(value.charAt(index - 1))
+            ) match
                 case Some(index) => value.substring(index)
                 case None => value
         }

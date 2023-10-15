@@ -2,7 +2,7 @@ package pl.piasta.lincalc.scala
 package ui.view
 
 import common.Constants.{DECIMAL_DOT, EMPTY, NAN, SIGN_EQUALS, SIGN_MINUS, ZERO}
-import common.Extensions.{endsWith, isNaN, isNoneOrEmpty, orDefault, runAsync, startsWith, stripTrailingZeros, takeLastWhileInclusive, toBigDecimal, valueOrDefault}
+import common.Extensions.{endsWith, isNaN, isNoneOrEmpty, orDefault, runAsync, startsWith, stripTrailingZeros, takeLastUntilFormerAndLatter, toBigDecimal, valueOrDefault}
 import math.MathExtensions.{cos, percentage, sin, sqrt}
 import math.MathFunction.{Cosine, Negation, Percentage, Sine, SquareRoot}
 import math.{MathEvaluator, MathFunction, MathOperator}
@@ -54,11 +54,12 @@ class ViewModel {
             if MathOperator.values.exists { op => currentExpression.lastOption.contains(op.sign) } then
                 currentExpression += displayValue.getValue
             else
-                val part = currentExpression.dropRight(1).takeLastWhileInclusive { ch =>
-                    !MathOperator.values.exists {
+                val part = currentExpression.dropRight(1).takeLastUntilFormerAndLatter(
+                    ch => MathOperator.values.exists {
                         ch == _.sign
-                    }
-                }
+                    },
+                    ch => ch.isDigit
+                )
                 currentExpression = displayValue.getValue + part
             MathEvaluator.evaluateExpression(currentExpression) match
                 case Some(value) => value.toString
